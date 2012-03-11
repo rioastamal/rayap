@@ -1,0 +1,50 @@
+About
+=====
+Rayap is a PHP based Object oriented wrapper for most of curl functions. It 
+simplify and making the use of curl very easy. Here is simple example how to 
+use Rayap.
+
+=== Simple GET Request ===
+<?php
+// include the class
+include_once('rayap.php');
+
+// instance the class
+$r = new Rayap();
+// fetch a page (using GET)
+$result = $r->rayap_get_page('http://www.google.com/');
+// close the connection
+$r->rayap_close();
+// print result
+echo $result;
+?>
+
+=== Simple POST Request ===
+<?php
+// include the class
+include_once('rayap.php');
+
+// instance the class
+$r = new Rayap('http://example.com/login.php');
+// set request method to POST
+$r->method = 'POST';
+// just to make sure we follow the redirection
+$r->always_follow = TRUE;
+// build the post data
+$data = array(
+  'username' => 'foo',
+  'password' => 'bar',
+  'submit' => 'Login'
+);
+$r->rayap_set_postdata($data);
+// ok, now shot the URL
+$result = $r->rayap_exec();
+// close the connection
+$r->rayap_close();
+// print the result
+echo $result;
+?>
+
+Sounds easy right? :).
+-----------------------
+Copyright 2008 Rio Astamal (me@rioastamal.net)
