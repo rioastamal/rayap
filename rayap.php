@@ -39,11 +39,11 @@
  * Here is example of fetching single page.
  * 
  * // instance the class
- * $r = new Rayap();
+ * $rayap = new Rayap();
  * // fetch a page
- * $result = $r->rayap_get_page('http://www.google.com/');
+ * $result = $rayap->get_page('http://www.google.com/');
  * // close the connection
- * $r->rayap_close();
+ * $rayap->close();
  * // print result
  * echo $result;
  *
@@ -88,7 +88,7 @@ class Rayap {
 	}
 	
 	
-	public function rayap_set_postdata($data, $multipart=FALSE) {
+	public function set_postdata($data, $multipart=FALSE) {
 		if ($this->raw_post) {
 			$this->post_data = $data;
 			return ;
@@ -128,7 +128,7 @@ class Rayap {
 			curl_setopt($this->curl, CURLOPT_POST, TRUE);
 			curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->post_data);
 		}
-		// other than GET or POST use rayap_opt to build your own data
+		// other than GET or POST use opt to build your own data
 		
 		// follow redirection?
 		curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, $this->always_follow);
@@ -172,21 +172,21 @@ class Rayap {
 		}
 	}
 	
-	public function rayap_opt($opt, $val) {
+	public function opt($opt, $val) {
 		$this->_custom_options[$opt] = $val;
 	}
 	
-	public function rayap_reset_postdata() {
+	public function reset_postdata() {
 		$this->post_data = '';
 	}
 	
-	public function rayap_get_page($url) {
+	public function get_page($url) {
 		$this->method = 'GET';
 		$this->URL = $url;
-		return $this->rayap_exec();
+		return $this->exec();
 	}
 	
-	public function rayap_exec() {
+	public function exec() {
 		// assign all values before executing
 		$this->_prepare();
 	
@@ -198,11 +198,11 @@ class Rayap {
 		return $ret;
 	}
 	
-	public function rayap_dump_status() {
+	public function dump_status() {
 		return curl_getinfo($this->curl);
 	}
 	
-	public function rayap_close() {
+	public function close() {
 		curl_close($this->curl);
 	}
 }
